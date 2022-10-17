@@ -1,19 +1,34 @@
-package com.bridgelabz.addressbookapp.dto;
+package com.bridgelabz.addressbookapp.entity;
 
-public class AddressBookDTO {
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+public class AddressBook {
+    @Id
+    private long id;
     private String firstName;
     private String lastName;
     private String contactNo;
     private String city;
 
-    public AddressBookDTO() {
+    public AddressBook() {
     }
 
-    public AddressBookDTO(String firstName, String lastName, String contactNo, String city) {
+    public AddressBook(long id, String firstName, String lastName, String contactNo, String city) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.contactNo = contactNo;
         this.city = city;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
