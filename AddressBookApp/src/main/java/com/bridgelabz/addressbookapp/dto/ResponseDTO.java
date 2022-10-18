@@ -1,4 +1,4 @@
-package com.bridgelabz.addressbookapp.entity;
+package com.bridgelabz.addressbookapp.dto;
 
 public class ResponseDTO {
     private String message;
