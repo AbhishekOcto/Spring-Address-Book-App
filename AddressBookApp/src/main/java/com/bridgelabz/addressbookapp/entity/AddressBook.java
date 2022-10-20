@@ -11,26 +11,37 @@ public class AddressBook {
     private long id;
     private String firstName;
     private String lastName;
-    private String contactNo;
     private String city;
+    private String state;
+    private int zip;
+    private String email;
+    private long contact;
 
     public AddressBook() {
     }
 
-    public AddressBook(long id, String firstName, String lastName, String contactNo, String city) {
+    public AddressBook(long id, String firstName, String lastName, String city, String state,
+                       int zip, long contact, String email) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.contactNo = contactNo;
         this.city = city;
+        this.state = state;
+        this.zip = zip;
+        this.email = email;
+        this.contact = contact;
+
     }
 
     public AddressBook(long id, AddressBookDTO addressBookDTO){
         this.id = id;
         this.firstName = addressBookDTO.getFirstName();
         this.lastName = addressBookDTO.getLastName();
-        this.contactNo = addressBookDTO.getContactNo();
         this.city = addressBookDTO.getCity();
+        this.state = addressBookDTO.getState();
+        this.zip = addressBookDTO.getZip();
+        this.contact = addressBookDTO.getContact();
+        this.email = addressBookDTO.getEmail();
     }
 
     public long getId() {
@@ -57,19 +68,43 @@ public class AddressBook {
         this.lastName = lastName;
     }
 
-    public String getContactNo() {
-        return contactNo;
-    }
-
-    public void setContactNo(String contactNo) {
-        this.contactNo = contactNo;
-    }
-
     public String getCity() {
         return city;
     }
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public int getZip() {
+        return zip;
+    }
+
+    public void setZip(int zip) {
+        this.zip = zip;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public long getContact() {
+        return contact;
+    }
+
+    public void setContact(long contact) {
+        this.contact = contact;
     }
 }
