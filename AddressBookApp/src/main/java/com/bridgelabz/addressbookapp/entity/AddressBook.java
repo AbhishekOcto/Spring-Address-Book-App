@@ -1,13 +1,17 @@
 package com.bridgelabz.addressbookapp.entity;
 
 import com.bridgelabz.addressbookapp.dto.AddressBookDTO;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "AddBookApp")
 @Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class AddressBook {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

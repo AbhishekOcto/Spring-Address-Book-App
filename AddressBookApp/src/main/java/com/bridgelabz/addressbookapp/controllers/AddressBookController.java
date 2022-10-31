@@ -21,9 +21,9 @@ public class AddressBookController {
         return addressBookService.getAddressBookData();
     }
 
-    @GetMapping("/get/{personId}")
-    public ResponseEntity<AddressBook> getAddressBookData(@PathVariable("personId") int personId) {
-        return addressBookService.getAddressBookDataById(personId);
+    @GetMapping("/get/{id}")
+    public ResponseEntity<AddressBook> getAddressBookData(@PathVariable("id") long id) {
+        return addressBookService.getAddressBookDataById(id);
     }
 
     @PostMapping("/create")
@@ -31,14 +31,14 @@ public class AddressBookController {
         return addressBookService.createAddressBookData(addressBookDTO);
     }
 
-    @PutMapping("/update/{personId}")
-    public ResponseEntity<AddressBook> updateAddressBookData(@PathVariable("personId") int personId,
+    @PutMapping("/update/{id}")
+    public ResponseEntity<AddressBook> updateAddressBookData(@PathVariable("id") long id,
                                                              @Valid  @RequestBody AddressBookDTO addressBookDTO) {
-        return addressBookService.updateAddressBookData(personId,addressBookDTO);
+        return addressBookService.updateAddressBookData(id,addressBookDTO);
     }
 
-    @DeleteMapping("/delete/{personId}")
-    public ResponseEntity<String> deleteAddressBookData(@PathVariable("personId") int personId) {
-        return addressBookService.deleteAddressBookData(personId);
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteAddressBookData(@PathVariable("id") long id) {
+        return addressBookService.deleteAddressBookData(id);
     }
 }
