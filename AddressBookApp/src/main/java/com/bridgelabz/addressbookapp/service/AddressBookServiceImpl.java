@@ -2,6 +2,7 @@ package com.bridgelabz.addressbookapp.service;
 
 import com.bridgelabz.addressbookapp.dto.AddressBookDTO;
 import com.bridgelabz.addressbookapp.entity.AddressBook;
+import com.bridgelabz.addressbookapp.exceptions.AddressBookException;
 import com.bridgelabz.addressbookapp.repository.AddressBookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,8 +24,8 @@ public class AddressBookServiceImpl implements IAddressBookService {
     }
 
     @Override
-    public ResponseEntity<AddressBook> getAddressBookDataById(long Id) {
-        AddressBook addressBook = addressBookRepository.findById(Id).orElse(null);
+    public ResponseEntity<AddressBook> getAddressBookDataById(long id) {
+        AddressBook addressBook = addressBookRepository.findById(id).orElseThrow(() -> new AddressBookException("Contact not found with id : "+id));;
         return new ResponseEntity<>(addressBook, HttpStatus.OK);
     }
 
@@ -36,8 +37,8 @@ public class AddressBookServiceImpl implements IAddressBookService {
     }
 
     @Override
-    public ResponseEntity<AddressBook> updateAddressBookData(long Id, AddressBookDTO addressBookDTO) {
-        AddressBook addressBook = addressBookRepository.findById(Id).orElse(null);
+    public ResponseEntity<AddressBook> updateAddressBookData(long id, AddressBookDTO addressBookDTO) {
+        AddressBook addressBook = addressBookRepository.findById(id).orElseThrow(() -> new AddressBookException("Contact not found with id : "+id));
         if (addressBook != null){
             addressBook.setFirstName(addressBookDTO.getFirstName());
             addressBook.setLastName(addressBookDTO.getLastName());
@@ -49,8 +50,8 @@ public class AddressBookServiceImpl implements IAddressBookService {
     }
 
     @Override
-    public ResponseEntity<String> deleteAddressBookData(long Id) {
-        addressBookRepository.deleteById(Id);
-        return new ResponseEntity<>("Deleted address book data for id : "+Id, HttpStatus.OK);
+    public ResponseEntity<String> deleteAddressBookData(long id) {
+        addressBookRepository.deleteById(id);
+        return new ResponseEntity<>("Deleted address book data for id : "+id, HttpStatus.OK);
     }
 }
