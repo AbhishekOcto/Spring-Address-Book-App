@@ -5,9 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
+
 
 @Data
 @NoArgsConstructor
@@ -23,7 +23,9 @@ public class AddressBookDTO {
     public String LastName;
 
     private String city;
+
     private String state;
+
     private int zip;
     private String email;
     private long contact;
