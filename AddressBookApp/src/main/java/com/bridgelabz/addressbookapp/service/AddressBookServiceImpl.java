@@ -4,6 +4,7 @@ import com.bridgelabz.addressbookapp.dto.AddressBookDTO;
 import com.bridgelabz.addressbookapp.entity.AddressBook;
 import com.bridgelabz.addressbookapp.exceptions.AddressBookException;
 import com.bridgelabz.addressbookapp.repository.AddressBookRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,10 @@ import java.util.List;
 public class AddressBookServiceImpl implements IAddressBookService {
     @Autowired
     private AddressBookRepository addressBookRepository;
-    List<AddressBook> addressBookList = new ArrayList<>();
+   // List<AddressBook> addressBookList = new ArrayList<>();
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     /*This method will show all the data entries at a time*/
     @Override
@@ -27,14 +31,13 @@ public class AddressBookServiceImpl implements IAddressBookService {
     /*This method will take id as argument and print the respective data*/
     @Override
     public ResponseEntity<AddressBook> getAddressBookDataById(long id) {
-        AddressBook addressBook = addressBookRepository.findById(id).orElseThrow(() -> new AddressBookException("Contact not found with id : "+id));;
+        AddressBook addressBook = addressBookRepository.findById(id).orElseThrow(() -> new AddressBookException("Contact not found with id : "+id));
         return new ResponseEntity<>(addressBook, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<AddressBook> createAddressBookData(AddressBookDTO addressBookDTO) {
-        AddressBook addressBook = new AddressBook(addressBookDTO);
-        addressBookRepository.save(addressBook);
+        AddressBook addressBook = addressBookRepository.save(modelMapper.map(addressBookDTO, AddressBook.class));
         return new ResponseEntity<>(addressBook, HttpStatus.OK);
     }
 
@@ -42,13 +45,14 @@ public class AddressBookServiceImpl implements IAddressBookService {
     public ResponseEntity<AddressBook> updateAddressBookData(long id, AddressBookDTO addressBookDTO) {
         AddressBook addressBook = addressBookRepository.findById(id).orElseThrow(() -> new AddressBookException("Contact not found with id : "+id));
         if (addressBook != null){
-            addressBook.setFirstName(addressBookDTO.getFirstName());
-            addressBook.setLastName(addressBookDTO.getLastName());
-            addressBook.setCity(addressBook.getCity());
-            addressBook.setState(addressBook.getState());
-            addressBook.setEmail(addressBook.getEmail());
-            addressBook.setContact(addressBookDTO.getContact());
-
+            addressBook = modelMapper.map(addressBookDTO, AddressBook.class);
+//            addressBook.setFirstName(addressBookDTO.getFirstName());
+//            addressBook.setLastName(addressBookDTO.getLastName());
+//            addressBook.setCity(addressBook.getCity());
+//            addressBook.setState(addressBook.getState());
+//            addressBook.setEmail(addressBook.getEmail());
+//            addressBook.setContact(addressBookDTO.getContact());
+            addressBook.setId(id);
             addressBookRepository.save(addressBook);
         }
         return new ResponseEntity<>(addressBook, HttpStatus.OK);
