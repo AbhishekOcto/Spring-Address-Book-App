@@ -18,11 +18,13 @@ public class AddressBookServiceImpl implements IAddressBookService {
     private AddressBookRepository addressBookRepository;
     List<AddressBook> addressBookList = new ArrayList<>();
 
+    /*This method will show all the data entries at a time*/
     @Override
     public ResponseEntity<List<AddressBook>> getAddressBookData() {
         return new ResponseEntity<>(addressBookRepository.findAll(),HttpStatus.OK);
     }
 
+    /*This method will take id as argument and print the respective data*/
     @Override
     public ResponseEntity<AddressBook> getAddressBookDataById(long id) {
         AddressBook addressBook = addressBookRepository.findById(id).orElseThrow(() -> new AddressBookException("Contact not found with id : "+id));;
@@ -42,8 +44,11 @@ public class AddressBookServiceImpl implements IAddressBookService {
         if (addressBook != null){
             addressBook.setFirstName(addressBookDTO.getFirstName());
             addressBook.setLastName(addressBookDTO.getLastName());
-            addressBook.setContact(addressBookDTO.getContact());
             addressBook.setCity(addressBook.getCity());
+            addressBook.setState(addressBook.getState());
+            addressBook.setEmail(addressBook.getEmail());
+            addressBook.setContact(addressBookDTO.getContact());
+
             addressBookRepository.save(addressBook);
         }
         return new ResponseEntity<>(addressBook, HttpStatus.OK);
